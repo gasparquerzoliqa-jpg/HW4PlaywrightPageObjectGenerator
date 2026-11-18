@@ -146,3 +146,33 @@ class TestCLIIntegration:
             ast.parse(code)
         except SyntaxError:
             pytest.fail(f"Generated code is not valid Python:\n{code}")
+
+    def test_simple_form_button_uses_role_locator(self, fixtures_dir, output_dir):
+        """Regression test: button 'Login' should use role locator with name, not text."""
+        output_dir.mkdir(exist_ok=True)
+        html_file = fixtures_dir / "simple_form.html"
+
+        with patch.object(generate, 'OUTPUT_DIR', output_dir):
+            generate.main([str(html_file), '--class-name', 'LoginPage'])
+
+        generated_file = output_dir / "LoginPage.py"
+        code = generated_file.read_text()
+
+        # The button should use get_by_role('button', name='Login'), not get_by_text('Login')
+        assert "page.get_by_role('button', name='Login')" in code
+        assert "page.get_by_text('Login')" not in code
+
+    def test_simple_form_link_uses_role_locator(self, fixtures_dir, output_dir):
+        """Regression test: link 'Sign Up' should use role locator with name, not text."""
+        output_dir.mkdir(exist_ok=True)
+        html_file = fixtures_dir / "simple_form.html"
+
+        with patch.object(generate, 'OUTPUT_DIR', output_dir):
+            generate.main([str(html_file), '--class-name', 'LoginPage'])
+
+        generated_file = output_dir / "LoginPage.py"
+        code = generated_file.read_text()
+
+        # The link should use get_by_role('link', name='Sign Up'), not get_by_text('Sign Up')
+        assert "page.get_by_role('link', name='Sign Up')" in code
+        assert "page.get_by_text('Sign Up')" not in code

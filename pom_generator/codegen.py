@@ -32,7 +32,11 @@ def generate_pom_class(located_elements, class_name='PageObject'):
             if method == 'get_by_test_id':
                 locator_call = f"page.get_by_test_id('{escaped_value}')"
             elif method == 'get_by_role':
-                locator_call = f"page.get_by_role('{escaped_value}')"
+                if 'name' in locator:
+                    escaped_name = locator['name'].replace("'", "\\'")
+                    locator_call = f"page.get_by_role('{escaped_value}', name='{escaped_name}')"
+                else:
+                    locator_call = f"page.get_by_role('{escaped_value}')"
             elif method == 'get_by_label':
                 locator_call = f"page.get_by_label('{escaped_value}')"
             elif method == 'get_by_placeholder':
