@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complex Form</title>
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Personal Info</legend>
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" />
+        </fieldset>
+
+        <fieldset>
+            <legend>Preferences</legend>
+            <label>
+                <input type="checkbox" name="newsletter" /> Subscribe to newsletter
+            </label>
+
+            <label>
+                <input type="radio" name="frequency" value="daily" /> Daily
+            </label>
+            <label>
+                <input type="radio" name="frequency" value="weekly" /> Weekly
+            </label>
+        </fieldset>
+
+        <button type="submit">Register</button>
+        <button type="reset">Clear</button>
+        <a href="/login">Back to Login</a>
+    </form>
+</body>
+</html>
