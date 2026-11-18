@@ -153,10 +153,14 @@ The current implementation does not yet support:
 - **TypeScript output** — Generated classes are Python only
 - **Custom locator strategies** — Locator selection follows a fixed priority order
 - **Live webpage validation** — Locators are not verified against a running webpage
-- **Label detection** — The `get_by_label()` method is not yet integrated into priority selection
 - **Advanced CSS selectors** — Only basic CSS selectors are generated as fallbacks
 
-These features are candidates for future enhancements based on user needs.
+### Known Observed Behaviors
+
+- **Label-associated inputs** — Inputs with `<label for="...">` are not detected and fall back to `page.locator('#id')` CSS selectors instead of using `get_by_label()`
+- **Buttons/links with indirect text** — Buttons and links where the text content is not directly within the element tag appear as `get_by_role()` without a `name` attribute
+
+These features and behaviors are candidates for future enhancements based on user needs.
 
 ## Development Process
 
